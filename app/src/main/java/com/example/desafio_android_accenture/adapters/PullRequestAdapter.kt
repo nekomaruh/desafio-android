@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
-import com.example.desafio_android_accenture.data.models.PullRequestModel
+import com.example.desafio_android_accenture.data.model.PullRequestModel
 
 class PullRequestAdapter(private val pullRequestList: List<PullRequestModel>): RecyclerView.Adapter<PullRequestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {

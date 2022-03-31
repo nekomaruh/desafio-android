@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafio_android_accenture.adapters.PullRequestAdapter
-import com.example.desafio_android_accenture.data.models.PullRequestProvider
+import com.example.desafio_android_accenture.data.model.PullRequestProvider
 import com.example.desafio_android_accenture.databinding.ActivityPullRequestBinding
 import com.example.desafio_android_accenture.ui.viewmodel.PullRequestViewModel
 
@@ -28,9 +28,9 @@ class PullRequestActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun initListHeader() {
         val opened = intent.getStringExtra("issues_opened")
-        val closed = intent.getStringExtra("issues_closed")
+        //val closed = intent.getStringExtra("issues_closed")
         binding.idOpenIssues.text = "$opened opened"
-        binding.idClosedIssues.text = " / $closed closed"
+        //binding.idClosedIssues.text = " / $closed closed"
     }
 
     private fun initRecyclerView() {

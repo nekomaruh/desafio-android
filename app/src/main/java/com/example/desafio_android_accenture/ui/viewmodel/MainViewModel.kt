@@ -1,14 +1,38 @@
 package com.example.desafio_android_accenture.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.desafio_android_accenture.data.models.RepoModel
-import com.example.desafio_android_accenture.data.models.RepoProvider
+import androidx.lifecycle.viewModelScope
+import com.example.desafio_android_accenture.data.model.RepositoryModel
+import com.example.desafio_android_accenture.domain.GetRepositoriesUseCase
+import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
-    val repoModel = MutableLiveData<List<RepoModel>>()
+    // Live Data
+    private val repositoryList = MutableLiveData<List<RepositoryModel>>()
+    val isLoading = MutableLiveData<Boolean>()
+    var pageIndex = 1
 
-    fun getRepoList(){
-        repoModel.postValue(RepoProvider.getRepositories())
+    // Use Cases
+    var getRepositoriesUseCase = GetRepositoriesUseCase()
+
+    fun onCreate(){
+        viewModelScope.launch {
+            isLoading.postValue(true)
+            val result = getRepositoriesUseCase(pageIndex)
+            Log.i("TAG2","pasa")
+            Log.i("TAG",result[0].toString())
+
+            if(!result.isNullOrEmpty()){
+                isLoading.postValue(false)
+                repositoryList.postValue(result)
+            }
+        }
     }
+
+    fun getRepository(): MutableLiveData<List<RepositoryModel>> = repositoryList
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.desafio_android_accenture.data.models
+package com.example.desafio_android_accenture.data.model
 
 class PullRequestProvider {
     companion object{

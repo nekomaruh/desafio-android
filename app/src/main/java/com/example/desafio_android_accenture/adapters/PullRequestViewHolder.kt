@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.example.desafio_android_accenture.data.models.PullRequestModel
+import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.databinding.ItemPullRequestBinding
 
 class PullRequestViewHolder(view: View): RecyclerView.ViewHolder(view){

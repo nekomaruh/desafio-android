@@ -4,9 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
-import com.example.desafio_android_accenture.data.models.RepoModel
+import com.example.desafio_android_accenture.data.model.RepositoryModel
 
-class RepoAdapter(private val repoList: List<RepoModel>, private val onClickListener:(RepoModel)->Unit): RecyclerView.Adapter<RepoViewHolder>() {
+// private val repoList: List<RepositoryModel>
+
+class RepoAdapter(private val onClickListener:(RepositoryModel)->Unit): RecyclerView.Adapter<RepoViewHolder>() {
+    var repoList = mutableListOf<RepositoryModel>()
+
+    fun addRepositories(repositories: List<RepositoryModel>){
+        repoList.addAll(repositories)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return RepoViewHolder(layoutInflater.inflate(R.layout.item_repository, parent, false))
