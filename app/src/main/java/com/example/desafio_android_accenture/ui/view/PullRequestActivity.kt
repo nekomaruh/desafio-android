@@ -48,7 +48,7 @@ class PullRequestActivity : AppCompatActivity() {
         val opened = intent.getStringExtra("issues_opened")
         //val closed = intent.getStringExtra("issues_closed")
         binding.idOpenIssues.text = "$opened opened"
-        //binding.idClosedIssues.text = " / $closed closed"
+        binding.idClosedIssues.text = " / ? closed"
     }
 
     private fun initRecyclerView() {
