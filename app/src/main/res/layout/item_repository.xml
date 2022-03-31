@@ -10,7 +10,7 @@
     <!-- Left side description -->
     <LinearLayout
         android:orientation="vertical"
-        android:layout_weight="0.8"
+        android:layout_weight="0.75"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
 
@@ -85,8 +85,8 @@
     <!-- Right side description -->
     <LinearLayout
         android:layout_width="0dp"
+        android:layout_weight="0.25"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
         android:gravity="center"
         android:layout_gravity="center"
         android:orientation="vertical">
@@ -99,16 +99,18 @@
             android:src="@color/amber"/>
         <TextView
             android:id="@+id/id_repo_username"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:maxLines="1"
             android:text="username"
             android:ellipsize="end"
             android:textColor="@color/indigo"/>
         <TextView
             android:id="@+id/id_repo_real_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:maxLines="1"
             android:ellipsize="end"
             android:text="nombre real"

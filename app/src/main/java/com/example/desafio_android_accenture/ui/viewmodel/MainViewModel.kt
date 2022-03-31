@@ -1,6 +1,5 @@
 package com.example.desafio_android_accenture.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,14 +14,12 @@ class MainViewModel: ViewModel() {
     var pageIndex = 1
 
     // Use Cases
-    var getRepositoriesUseCase = GetRepositoriesUseCase()
+    private var getRepositoriesUseCase = GetRepositoriesUseCase()
 
     fun onCreate(){
         viewModelScope.launch {
             isLoading.postValue(true)
             val result = getRepositoriesUseCase(pageIndex)
-            Log.i("TAG2","pasa")
-            Log.i("TAG",result[0].toString())
 
             if(!result.isNullOrEmpty()){
                 isLoading.postValue(false)
@@ -32,7 +29,4 @@ class MainViewModel: ViewModel() {
     }
 
     fun getRepository(): MutableLiveData<List<RepositoryModel>> = repositoryList
-
-
-
 }

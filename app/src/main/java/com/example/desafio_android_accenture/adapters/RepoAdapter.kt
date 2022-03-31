@@ -1,16 +1,16 @@
 package com.example.desafio_android_accenture.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 
-// private val repoList: List<RepositoryModel>
-
 class RepoAdapter(private val onClickListener:(RepositoryModel)->Unit): RecyclerView.Adapter<RepoViewHolder>() {
     var repoList = mutableListOf<RepositoryModel>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addRepositories(repositories: List<RepositoryModel>){
         repoList.addAll(repositories)
         notifyDataSetChanged()

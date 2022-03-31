@@ -13,8 +13,8 @@ class PullRequestViewHolder(view: View): RecyclerView.ViewHolder(view){
     fun render(pullRequestModel: PullRequestModel){
         binding.idPullRequestTitle.text = pullRequestModel.title
         binding.idPullRequestBody.text = pullRequestModel.body
-        binding.idPullRequestUsername.text = pullRequestModel.username
-        binding.idPullRequestRealName.text = pullRequestModel.userRealName
+        binding.idPullRequestUsername.text = pullRequestModel.title
+        binding.idPullRequestRealName.text = pullRequestModel.user.login
         Glide.with(binding.idPullRequestProfileImg.context)
             .load("https://picsum.photos/200")
             .transform(CircleCrop())

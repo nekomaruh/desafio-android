@@ -11,7 +11,7 @@ data class RepositoryModel(
     @SerializedName("stargazers_count") val stars: String,
     @SerializedName("forks_count") val branches: String,
     @SerializedName("user_img_url") val userImgUrl: String,
-    @SerializedName("owner") val owner: OwnerModel
+    @SerializedName("owner") val user: UserModel
 )
 
 /*

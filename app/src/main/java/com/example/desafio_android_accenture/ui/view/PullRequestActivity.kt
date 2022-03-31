@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafio_android_accenture.adapters.PullRequestAdapter
-import com.example.desafio_android_accenture.data.model.PullRequestProvider
 import com.example.desafio_android_accenture.databinding.ActivityPullRequestBinding
 import com.example.desafio_android_accenture.ui.viewmodel.PullRequestViewModel
 
@@ -22,7 +23,24 @@ class PullRequestActivity : AppCompatActivity() {
         setContentView(binding.root)
         initActionBar()
         initListHeader()
+        initLoadingProgressBar()
         initRecyclerView()
+        initViewModel()
+    }
+
+    private fun initLoadingProgressBar(){
+        pullRequestsViewModel.isLoading.observe(this, Observer {
+            binding.idProgressbarPulls.isVisible = it
+            }
+        )
+    }
+
+    private fun initViewModel() {
+        val title = intent.getStringExtra("repo_title")
+        val user = intent.getStringExtra("repo_user")
+        if(title != null && user !=null){
+            pullRequestsViewModel.onCreate(user,title)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -34,10 +52,17 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        binding.idPullRequestRecyclerView.addItemDecoration(
+        val recyclerView = binding.idPullRequestRecyclerView
+        val adapter = PullRequestAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(
             DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         )
-        binding.idPullRequestRecyclerView.adapter = PullRequestAdapter(PullRequestProvider.getPullRequests())
+        //recyclerView.adapter = PullRequestAdapter()
+        pullRequestsViewModel.pullRequestList.observe(this, Observer {
+            adapter.addPullRequests(it)
+        })
+
     }
 
     private fun initActionBar(){

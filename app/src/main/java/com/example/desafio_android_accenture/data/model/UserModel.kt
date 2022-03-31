@@ -2,7 +2,7 @@ package com.example.desafio_android_accenture.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class OwnerModel (
+data class UserModel (
     @SerializedName("id") val id:Int,
     @SerializedName("login") val login:String,
     @SerializedName("avatar_url") val avatarUrl:String,

@@ -1,17 +1,17 @@
 package com.example.desafio_android_accenture.data
 
-import android.util.Log
+import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.data.model.RepositoryModel
-import com.example.desafio_android_accenture.data.model.RepositoryProvider
 import com.example.desafio_android_accenture.data.network.GithubApiService
 
 class GithubRepository {
     private val api = GithubApiService()
 
-    suspend fun getAllRepositories(page:Int):List<RepositoryModel>{
-        val response = api.getRepositories(page)
-        Log.i("TAG",response[0].toString())
-        RepositoryProvider.repositories = response
-        return response
+    suspend fun getAllRepositories(page: Int): List<RepositoryModel> {
+        return api.getRepositories(page)
+    }
+
+    suspend fun getPullRequests(user: String, repository:String): List<PullRequestModel> {
+        return api.getPullRequests(user, repository)
     }
 }

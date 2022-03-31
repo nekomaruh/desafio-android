@@ -11,14 +11,14 @@ class RepoViewHolder(view: View):RecyclerView.ViewHolder(view){
     private var binding = ItemRepositoryBinding.bind(view)
 
     fun render(repoModel: RepositoryModel, onClickListener: (RepositoryModel) -> Unit){
-        binding.idRepoTitle.text = repoModel.name
+        binding.idRepoTitle.text = repoModel.fullName
         binding.idRepoDescription.text = repoModel.description
         binding.idBranchesCount.text = repoModel.branches
         binding.idStarredCount.text = repoModel.stars
-        binding.idRepoUsername.text = repoModel.fullName
-        binding.idRepoRealName.text = repoModel.name
+        binding.idRepoUsername.text = repoModel.name
+        binding.idRepoRealName.text = repoModel.user.login
         Glide.with(binding.idRepoProfileImg.context)
-            .load("https://picsum.photos/200")
+            .load(repoModel.user.avatarUrl)
             .transform(CircleCrop())
             .into(binding.idRepoProfileImg)
         itemView.setOnClickListener { onClickListener(repoModel) }
