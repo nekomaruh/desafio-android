@@ -14,19 +14,20 @@ import java.util.*
 class PullRequestViewHolder(view: View): RecyclerView.ViewHolder(view){
     private var binding = ItemPullRequestBinding.bind(view)
 
+
     private fun formatDate(inputDate: String): String {
         var convertedDate = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSZ", Locale.getDefault())
         try {
             convertedDate = dateFormat.parse(inputDate)
-            print("Parsed date $convertedDate")
-        } catch (ignored: ParseException) {
-        }
+        } catch (ignored: ParseException) { }
 
         //if you wish to change the parsed date into another formatted date
         val dfOutput = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         return dfOutput.format(convertedDate)
     }
+
+
 
     @SuppressLint("SetTextI18n")
     fun render(pullRequestModel: PullRequestModel){

@@ -9,14 +9,14 @@ import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
     // Live Data
-    private val repositoryList = MutableLiveData<List<RepositoryModel>>()
+    val repositoryList = MutableLiveData<List<RepositoryModel>>()
     val isLoading = MutableLiveData<Boolean>()
     var pageIndex = 1
 
     // Use Cases
     private var getRepositoriesUseCase = GetRepositoriesUseCase()
 
-    fun onCreate(){
+    init {
         viewModelScope.launch {
             isLoading.postValue(true)
             val result = getRepositoriesUseCase(pageIndex)
@@ -28,5 +28,4 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun getRepository(): MutableLiveData<List<RepositoryModel>> = repositoryList
 }

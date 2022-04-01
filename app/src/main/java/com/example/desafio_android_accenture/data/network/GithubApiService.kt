@@ -26,7 +26,7 @@ class GithubApiService{
         return withContext(Dispatchers.IO){
             val response = retrofit.create(GithubApiClient::class.java)
                 .getPullRequests(user, repository)
-            //Log.i("JSON:",response.body().toString())
+            Log.i("JSON:",response.body().toString())
             response.body() ?: emptyList()
         }
     }

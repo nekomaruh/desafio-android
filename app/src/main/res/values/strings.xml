@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Github JavaPop</string>
+    <string name="slash">/</string>
+    <string name="no_comments">/</string>
+
+    <string name="open_issues">
+        <font color="#FF0707">open</font>
+    </string>
+    <string name="closed_issues">
+        <font color="closed">AND NOW BLUE</font>
+    </string>
+
+
 </resources>

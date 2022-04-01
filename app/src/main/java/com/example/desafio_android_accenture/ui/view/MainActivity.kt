@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initRecyclerView()
         initLoadingProgressBar()
-        mainViewModel.onCreate()
     }
 
     private fun initLoadingProgressBar(){
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(
             DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         )
-        mainViewModel.getRepository().observe(this, Observer {
+        mainViewModel.repositoryList.observe(this, Observer {
             adapter.addRepositories(it)
         })
     }

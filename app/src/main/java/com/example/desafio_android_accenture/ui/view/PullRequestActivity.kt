@@ -62,7 +62,6 @@ class PullRequestActivity : AppCompatActivity() {
         pullRequestsViewModel.pullRequestList.observe(this, Observer {
             adapter.addPullRequests(it)
         })
-
     }
 
     private fun initActionBar(){
