@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.adapters.RepoAdapter
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.ActivityMainBinding
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
         initLoadingProgressBar()
+        //supportActionBar?.setHomeButtonEnabled(true)
     }
 
     private fun initLoadingProgressBar(){

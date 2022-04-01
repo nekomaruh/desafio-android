@@ -39,7 +39,7 @@ class PullRequestActivity : AppCompatActivity() {
         val title = intent.getStringExtra("repo_title")
         val user = intent.getStringExtra("repo_user")
         if(title != null && user !=null){
-            pullRequestsViewModel.onCreate(user,title)
+            pullRequestsViewModel.getPullRequests(user,title)
         }
     }
 
@@ -62,6 +62,10 @@ class PullRequestActivity : AppCompatActivity() {
         pullRequestsViewModel.pullRequestList.observe(this, Observer {
             adapter.addPullRequests(it)
         })
+
+        pullRequestsViewModel.isListEmpty.observe(this) {
+            binding.idEmptyListText.isVisible = it
+        }
     }
 
     private fun initActionBar(){

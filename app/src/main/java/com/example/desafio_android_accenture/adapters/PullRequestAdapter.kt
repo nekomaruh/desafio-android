@@ -14,6 +14,7 @@ class PullRequestAdapter(): RecyclerView.Adapter<PullRequestViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun addPullRequests(pullRequests: List<PullRequestModel>){
+        pullRequestList.clear()
         pullRequestList.addAll(pullRequests)
         notifyDataSetChanged()
     }

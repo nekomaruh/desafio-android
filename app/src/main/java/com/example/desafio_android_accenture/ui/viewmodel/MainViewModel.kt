@@ -22,9 +22,9 @@ class MainViewModel: ViewModel() {
             val result = getRepositoriesUseCase(pageIndex)
 
             if(!result.isNullOrEmpty()){
-                isLoading.postValue(false)
                 repositoryList.postValue(result)
             }
+            isLoading.postValue(false)
         }
     }
 

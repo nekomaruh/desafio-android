@@ -10,12 +10,14 @@ interface GithubApiClient {
     @GET("search/repositories?q=language:Java&sort=stars")
     suspend fun getAllRepositories(@Query("page") page:Int): Response<RepositoryResponse>
 
-    //@GET("users/{user}")
-    //suspend fun getUser(@Path("user") user:String): Response<List<UserModel>>
-
     @GET("repos/{user}/{repo}/pulls")
     suspend fun getPullRequests(
         @Path("user") user:String,
         @Path("repo") repository: String)
-    : Response<List<PullRequestModel>>
+            : Response<List<PullRequestModel>>
+
+    //@GET("users/{user}")
+    //suspend fun getUser(@Path("user") user:String): Response<List<UserModel>>
+
+
 }
