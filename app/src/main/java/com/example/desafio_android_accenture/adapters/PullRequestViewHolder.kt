@@ -19,7 +19,7 @@ class PullRequestViewHolder(view: View): RecyclerView.ViewHolder(view){
         var convertedDate = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSZ", Locale.getDefault())
         try {
-            convertedDate = dateFormat.parse(inputDate)
+            convertedDate = dateFormat.parse(inputDate) as Date
         } catch (ignored: ParseException) { }
 
         //if you wish to change the parsed date into another formatted date

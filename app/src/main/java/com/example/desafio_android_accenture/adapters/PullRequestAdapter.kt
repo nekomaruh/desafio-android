@@ -3,25 +3,38 @@ package com.example.desafio_android_accenture.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 
 // private val pullRequestList: List<PullRequestModel>
 
-class PullRequestAdapter(): RecyclerView.Adapter<PullRequestViewHolder>() {
+class PullRequestAdapter() : RecyclerView.Adapter<PullRequestViewHolder>() {
     var pullRequestList = mutableListOf<PullRequestModel>()
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addPullRequests(pullRequests: List<PullRequestModel>){
+    fun addPullRequests(pullRequests: List<PullRequestModel>) {
         pullRequestList.clear()
+        //pullRequestList.addAll(pullRequests)
+        //notifyDataSetChanged()
+
+        val oldList = pullRequestList
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
+            PullRequestAdapter.PullRequestItemDiffCallback(oldList, pullRequests)
+        )
         pullRequestList.addAll(pullRequests)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return PullRequestViewHolder(layoutInflater.inflate(R.layout.item_pull_request, parent, false))
+        return PullRequestViewHolder(
+            layoutInflater.inflate(
+                R.layout.item_pull_request,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: PullRequestViewHolder, position: Int) {
@@ -30,4 +43,21 @@ class PullRequestAdapter(): RecyclerView.Adapter<PullRequestViewHolder>() {
     }
 
     override fun getItemCount(): Int = pullRequestList.size
+
+    class PullRequestItemDiffCallback(
+        var oldList: List<PullRequestModel>,
+        var newList: List<PullRequestModel>
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].user == newList[oldItemPosition].user
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].equals(newList[newItemPosition])
+        }
+    }
 }
