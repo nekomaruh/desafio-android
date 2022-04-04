@@ -9,7 +9,7 @@ import com.example.desafio_android_accenture.data.model.RepositoryModel
 
 class RepositoryAdapter(private val onClickListener: (RepositoryModel) -> Unit) :
     RecyclerView.Adapter<RepositoryViewHolder>() {
-    private var repoList = mutableListOf<RepositoryModel>()
+    private val repoList = mutableListOf<RepositoryModel>()
 
     fun addRepositories(repositories: List<RepositoryModel>) {
         val oldList = repoList

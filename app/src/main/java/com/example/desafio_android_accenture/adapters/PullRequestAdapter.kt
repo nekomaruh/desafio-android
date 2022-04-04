@@ -11,7 +11,7 @@ import com.example.desafio_android_accenture.data.model.PullRequestModel
 // private val pullRequestList: List<PullRequestModel>
 
 class PullRequestAdapter() : RecyclerView.Adapter<PullRequestViewHolder>() {
-    var pullRequestList = mutableListOf<PullRequestModel>()
+    private val pullRequestList = mutableListOf<PullRequestModel>()
 
     fun addPullRequests(pullRequests: List<PullRequestModel>) {
         pullRequestList.clear()
