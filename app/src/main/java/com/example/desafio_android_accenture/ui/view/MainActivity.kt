@@ -13,7 +13,9 @@ import com.example.desafio_android_accenture.adapters.RepoAdapter
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.ActivityMainBinding
 import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

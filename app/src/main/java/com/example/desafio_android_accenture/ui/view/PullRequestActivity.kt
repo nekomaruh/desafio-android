@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafio_android_accenture.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.databinding.ActivityPullRequestBinding
 import com.example.desafio_android_accenture.ui.viewmodel.PullRequestViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PullRequestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPullRequestBinding

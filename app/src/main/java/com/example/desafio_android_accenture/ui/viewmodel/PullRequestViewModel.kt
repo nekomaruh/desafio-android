@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.domain.GetPullRequestsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PullRequestViewModel: ViewModel() {
-    // Use Cases
-    var getPullRequestsUseCase = GetPullRequestsUseCase()
+@HiltViewModel
+class PullRequestViewModel @Inject constructor(
+    private val getPullRequestsUseCase: GetPullRequestsUseCase
+): ViewModel() {
 
     // Live Data
     val pullRequestList = MutableLiveData<List<PullRequestModel>>()
@@ -29,8 +32,4 @@ class PullRequestViewModel: ViewModel() {
             isLoading.postValue(false)
         }
     }
-
-    //fun getPullRequests(): MutableLiveData<List<PullRequestModel>> = pullRequestList
-    //fun getIsLoading(): MutableLiveData<Boolean> = isLoading
-
 }
