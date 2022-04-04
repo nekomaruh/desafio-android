@@ -9,12 +9,10 @@ import javax.inject.Inject
 
 class GithubApiService @Inject constructor(private val api: GithubApiClient){
 
-
     suspend fun getRepositories(page:Int):List<RepositoryModel>{
         // Executes in a secondary thread to avoid UI freeze
         return withContext(Dispatchers.IO){
             val response = api.getAllRepositories(page)
-            //Log.i("JSON:",response.body().toString())
             response.body()?.repositories ?: emptyList()
         }
     }
@@ -23,7 +21,6 @@ class GithubApiService @Inject constructor(private val api: GithubApiClient){
         // Executes in a secondary thread to avoid UI freeze
         return withContext(Dispatchers.IO){
             val response = api.getPullRequests(user, repository)
-            Log.i("JSON:",response.body().toString())
             response.body() ?: emptyList()
         }
     }

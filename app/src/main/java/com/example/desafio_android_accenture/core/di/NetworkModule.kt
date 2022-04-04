@@ -31,4 +31,5 @@ object NetworkModule {
     fun provideGithubApiClient(retrofit: Retrofit):GithubApiClient{
         return retrofit.create(GithubApiClient::class.java)
     }
+
 }

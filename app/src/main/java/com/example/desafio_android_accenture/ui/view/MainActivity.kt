@@ -8,8 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.desafio_android_accenture.R
-import com.example.desafio_android_accenture.adapters.RepoAdapter
+import com.example.desafio_android_accenture.adapters.RepositoryAdapter
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.ActivityMainBinding
 import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         val recyclerView = binding.idRepoRecyclerview
-        val adapter = RepoAdapter { repoModel -> onItemClick(repoModel) }
+        val adapter = RepositoryAdapter { repoModel -> onItemClick(repoModel) }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(
             DividerItemDecoration(this, LinearLayoutManager.VERTICAL)

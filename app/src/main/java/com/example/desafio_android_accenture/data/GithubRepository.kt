@@ -6,7 +6,6 @@ import com.example.desafio_android_accenture.data.network.GithubApiService
 import javax.inject.Inject
 
 class GithubRepository @Inject constructor(private val githubApiService: GithubApiService){
-    //private val api = GithubApiService()
 
     suspend fun getAllRepositories(page: Int): List<RepositoryModel> {
         return githubApiService.getRepositories(page)

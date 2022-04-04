@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 
-class RepoAdapter(private val onClickListener: (RepositoryModel) -> Unit) :
-    RecyclerView.Adapter<RepoViewHolder>() {
+class RepositoryAdapter(private val onClickListener: (RepositoryModel) -> Unit) :
+    RecyclerView.Adapter<RepositoryViewHolder>() {
     private var repoList = mutableListOf<RepositoryModel>()
 
     fun addRepositories(repositories: List<RepositoryModel>) {
@@ -20,12 +20,12 @@ class RepoAdapter(private val onClickListener: (RepositoryModel) -> Unit) :
         diffResult.dispatchUpdatesTo(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return RepoViewHolder(layoutInflater.inflate(R.layout.item_repository, parent, false))
+        return RepositoryViewHolder(layoutInflater.inflate(R.layout.item_repository, parent, false))
     }
 
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         val item = repoList[position]
         return holder.render(item, onClickListener)
     }
