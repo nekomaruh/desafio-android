@@ -18,5 +18,15 @@
         android:id="@+id/pullRequestFragment"
         android:name="com.example.desafio_android_accenture.ui.fragments.PullRequestFragment"
         android:label="fragment_pull_request"
-        tools:layout="@layout/fragment_pull_request" />
+        tools:layout="@layout/fragment_pull_request">
+        <argument
+            android:name="repo_title"
+            app:argType="string" />
+        <argument
+            android:name="repo_user"
+            app:argType="string" />
+        <argument
+            android:name="issues_opened"
+            app:argType="string" />
+    </fragment>
 </navigation>

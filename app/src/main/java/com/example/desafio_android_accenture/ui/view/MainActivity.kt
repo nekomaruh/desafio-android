@@ -6,8 +6,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.adapters.RepositoryAdapter
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.ActivityMainBinding
@@ -24,10 +29,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        initRecyclerView()
         initLoadingProgressBar()
-        //supportActionBar?.setHomeButtonEnabled(true)
+        initActionBar()
+    }
+
+    private fun initActionBar(){
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
+        val navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
     }
 
     private fun initLoadingProgressBar(){
@@ -35,26 +45,5 @@ class MainActivity : AppCompatActivity() {
             binding.idProgressbarMain.isVisible = it
             }
         )
-    }
-
-    private fun initRecyclerView() {
-        val recyclerView = binding.idRepoRecyclerview
-        val adapter = RepositoryAdapter { repoModel -> onItemClick(repoModel) }
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-        )
-        mainViewModel.repositoryList.observe(this, Observer {
-            adapter.addRepositories(it)
-        })
-    }
-
-    private fun onItemClick(repoModel: RepositoryModel){
-        val intent = Intent(this, PullRequestActivity::class.java)
-        intent.putExtra("repo_title", repoModel.name)
-        intent.putExtra("repo_user", repoModel.user.login)
-        intent.putExtra("issues_opened", repoModel.issuesOpened)
-        //intent.putExtra("issues_closed", repoModel.issuesClosed)
-        startActivity(intent)
     }
 }

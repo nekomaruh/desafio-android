@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
 
-
+    <!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/id_repo_recyclerview"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+    -->
 
 
-    <!--
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -31,5 +31,11 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
-        -->
+
+    <ProgressBar
+        android:id="@+id/id_progressbar_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
 </FrameLayout>

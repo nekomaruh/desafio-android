@@ -1,18 +1,23 @@
 package com.example.desafio_android_accenture.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.desafio_android_accenture.R
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.desafio_android_accenture.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.databinding.FragmentPullRequestBinding
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.example.desafio_android_accenture.ui.view.MainActivity
+import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -20,50 +25,51 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PullRequestFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var binding: FragmentPullRequestBinding
+    private lateinit var viewModel: MainViewModel
+    private val args: PullRequestFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        viewModel = activity?.let {
+            ViewModelProvider(it)[MainViewModel::class.java]
+        }!!
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pull_request, container, false)
+    ): View {
+        binding = FragmentPullRequestBinding.inflate(inflater, container, false)
+        initListHeader()
+        initRecyclerView()
+        (activity as MainActivity).supportActionBar?.title = args.repoTitle
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val navController = Navigation.findNavController(view)
+    @SuppressLint("SetTextI18n")
+    private fun initListHeader() {
+        val issues = args.issuesOpened
+        binding.idOpenIssues.text = "$issues opened"
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PullRequestFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PullRequestFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun initRecyclerView() {
+        val recyclerView = binding.idPullRequestRecyclerView
+        val adapter = PullRequestAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+        )
+        val title = args.repoTitle
+        val user = args.repoUser
+        val pullRequests = viewModel.getPullRequests(user, title)
+        pullRequests.observe(viewLifecycleOwner, Observer {
+            adapter.addPullRequests(it)
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.idEmptyListText.isVisible = it
+        }
     }
 }

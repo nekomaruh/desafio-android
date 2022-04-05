@@ -39,11 +39,6 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/id_progressbar_pulls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/id_empty_list_text"
@@ -52,7 +47,7 @@
         android:textColor="@color/indigo"
         android:textSize="20sp"
         android:text="There are no pull requests\nin this repository"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:gravity="center"/>
 
 </FrameLayout>
