@@ -1,26 +1,22 @@
-package com.example.desafio_android_accenture.adapters
+package com.example.desafio_android_accenture.ui.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.model.PullRequestModel
+import com.example.desafio_android_accenture.ui.viewholders.PullRequestViewHolder
 
-// private val pullRequestList: List<PullRequestModel>
 
-class PullRequestAdapter() : RecyclerView.Adapter<PullRequestViewHolder>() {
+class PullRequestAdapter : RecyclerView.Adapter<PullRequestViewHolder>() {
     private val pullRequestList = mutableListOf<PullRequestModel>()
 
     fun addPullRequests(pullRequests: List<PullRequestModel>) {
         pullRequestList.clear()
-        //pullRequestList.addAll(pullRequests)
-        //notifyDataSetChanged()
-
         val oldList = pullRequestList
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
-            PullRequestAdapter.PullRequestItemDiffCallback(oldList, pullRequests)
+            PullRequestItemDiffCallback(oldList, pullRequests)
         )
         pullRequestList.addAll(pullRequests)
         diffResult.dispatchUpdatesTo(this)

@@ -1,10 +1,8 @@
-package com.example.desafio_android_accenture.adapters
+package com.example.desafio_android_accenture.ui.viewholders
 
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.PullRequestModel
@@ -46,6 +44,7 @@ class PullRequestViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         imageLoader.loadCircled(
             binding.idPullRequestProfileImg.context,
             pullRequestModel.user.avatarUrl,
-            binding.idPullRequestProfileImg)
+            binding.idPullRequestProfileImg,
+        )
     }
 }

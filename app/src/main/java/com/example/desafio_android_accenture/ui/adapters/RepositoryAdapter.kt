@@ -1,15 +1,25 @@
-package com.example.desafio_android_accenture.adapters
+package com.example.desafio_android_accenture.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
+import com.example.desafio_android_accenture.data.imageloader.ImageLoader
+import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
+import com.example.desafio_android_accenture.ui.viewholders.RepositoryViewHolder
 
-class RepositoryAdapter(private val onClickListener: (RepositoryModel) -> Unit) :
+// private val onClickListener: (RepositoryModel) -> Unit
+class RepositoryAdapter(private val manager: AdapterManager) :
     RecyclerView.Adapter<RepositoryViewHolder>() {
+
     private val repoList = mutableListOf<RepositoryModel>()
+
+    interface AdapterManager {
+        fun onRepositoryClick(item: RepositoryModel)
+        fun provideImageLoader(): ImageLoader
+    }
 
     fun addRepositories(repositories: List<RepositoryModel>) {
         val oldList = repoList
@@ -22,12 +32,15 @@ class RepositoryAdapter(private val onClickListener: (RepositoryModel) -> Unit) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return RepositoryViewHolder(layoutInflater.inflate(R.layout.item_repository, parent, false))
+        return RepositoryViewHolder(
+            layoutInflater.inflate(R.layout.item_repository, parent, false),
+            manager
+        )
     }
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         val item = repoList[position]
-        return holder.render(item, onClickListener)
+        return holder.render(item)
     }
 
     override fun getItemCount(): Int = repoList.size

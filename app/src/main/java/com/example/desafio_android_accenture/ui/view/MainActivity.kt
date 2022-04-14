@@ -1,20 +1,12 @@
 package com.example.desafio_android_accenture.ui.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.desafio_android_accenture.R
-import com.example.desafio_android_accenture.adapters.RepositoryAdapter
-import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.ActivityMainBinding
 import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint

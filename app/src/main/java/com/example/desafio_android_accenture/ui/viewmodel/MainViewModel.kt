@@ -7,6 +7,7 @@ import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.domain.GetPullRequestsUseCase
 import com.example.desafio_android_accenture.domain.GetRepositoriesUseCase
+import com.example.desafio_android_accenture.ui.utils.extensions.execute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,10 +26,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             isLoading.postValue(true)
             val result = getRepositoriesUseCase(pageIndex)
-
-            if(!result.isNullOrEmpty()){
-                repositoryList.postValue(result)
-            }
+            if(!result.isNullOrEmpty()) repositoryList.postValue(result)
             isLoading.postValue(false)
         }
     }
