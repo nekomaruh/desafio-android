@@ -13,7 +13,7 @@ fun String.parseISO8601Date(): Date = ISO8601format.parse(this)!!
 
 @SuppressLint("DefaultLocale")
 fun String.normalize(): String = Normalizer
-    .normalize(toLowerCase(), Normalizer.Form.NFD)
+    .normalize(lowercase(), Normalizer.Form.NFD)
     .replace("[^\\p{ASCII}]".toRegex(), "")
 
 fun Long.formatInterval(): String = intervalFormat.format(Date(this))

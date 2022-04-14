@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,8 +16,6 @@ import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.FragmentRepositoryBinding
 import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -32,13 +28,11 @@ class RepositoryFragment : Fragment() {
     private lateinit var binding: FragmentRepositoryBinding
     private lateinit var viewModel: MainViewModel
     private val imageLoader: ImageLoader = ImageLoaderService()
-    private val adapter = RepositoryAdapter(manager = RepositoryManager())
+    private val repositoryAdapter = RepositoryAdapter(manager = RepositoryManager())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = activity?.let {
-            ViewModelProvider(it)[MainViewModel::class.java]
-        }!!
+        viewModel = activity?.let { ViewModelProvider(it)[MainViewModel::class.java] }!!
     }
 
     override fun onCreateView(
@@ -55,13 +49,12 @@ class RepositoryFragment : Fragment() {
     }
 
     private fun initRecyclerView(context: Context) {
-        val recyclerView = binding.idRepoRecyclerview
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-        )
-        viewModel.repositoryList.observe(viewLifecycleOwner) {
-            adapter.addRepositories(it)
+        with(binding.idRepoRecyclerview) {
+            adapter = repositoryAdapter
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        }
+        with(viewModel) {
+            repositoryList.observe(viewLifecycleOwner, repositoryAdapter::addRepositories)
         }
     }
 
