@@ -1,4 +1,4 @@
-package com.example.desafio_android_accenture.ui.viewmodel
+package com.example.desafio_android_accenture.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,6 @@ import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.domain.GetPullRequestsUseCase
 import com.example.desafio_android_accenture.domain.GetRepositoriesUseCase
-import com.example.desafio_android_accenture.ui.utils.extensions.execute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

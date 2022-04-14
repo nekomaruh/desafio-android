@@ -7,20 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
-import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.ui.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.databinding.FragmentPullRequestBinding
-import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
 import com.example.desafio_android_accenture.ui.view.MainActivity
-import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
+import com.example.desafio_android_accenture.presentation.viewmodel.MainViewModel
 
 /**
  * A simple [Fragment] subclass.

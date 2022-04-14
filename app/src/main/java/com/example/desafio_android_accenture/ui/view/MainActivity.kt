@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.desafio_android_accenture.databinding.ActivityMainBinding
-import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
+import com.example.desafio_android_accenture.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

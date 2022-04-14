@@ -15,7 +15,7 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.FragmentRepositoryBinding
-import com.example.desafio_android_accenture.ui.viewmodel.MainViewModel
+import com.example.desafio_android_accenture.presentation.viewmodel.MainViewModel
 
 /**
  * A simple [Fragment] subclass.

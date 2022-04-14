@@ -1,4 +1,4 @@
-package com.example.desafio_android_accenture.ui.utils.extensions
+package com.example.desafio_android_accenture.utils.extensions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
