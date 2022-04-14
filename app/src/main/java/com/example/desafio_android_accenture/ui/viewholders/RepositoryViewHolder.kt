@@ -18,12 +18,14 @@ class RepositoryViewHolder(
     private val binding = ItemRepositoryBinding.bind(view)
 
     fun render(repoModel: RepositoryModel) {
-        binding.idRepoTitle.text = repoModel.fullName
-        binding.idRepoDescription.text = repoModel.description
-        binding.idBranchesCount.text = repoModel.branches
-        binding.idStarredCount.text = repoModel.stars
-        binding.idRepoUsername.text = repoModel.name
-        binding.idRepoRealName.text = repoModel.user.login
+        with(binding) {
+            idRepoTitle.text = repoModel.fullName
+            idRepoDescription.text = repoModel.description
+            idBranchesCount.text = repoModel.branches
+            idStarredCount.text = repoModel.stars
+            idRepoUsername.text = repoModel.name
+            idRepoRealName.text = repoModel.user.login
+        }
 
         manager.provideImageLoader().loadCircled(
             binding.idRepoProfileImg.context,

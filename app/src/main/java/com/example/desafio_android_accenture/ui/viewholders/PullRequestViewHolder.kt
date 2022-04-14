@@ -7,13 +7,17 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.databinding.ItemPullRequestBinding
+import com.example.desafio_android_accenture.ui.adapters.PullRequestAdapter
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PullRequestViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PullRequestViewHolder(
+    view: View,
+    private val manager: PullRequestAdapter.AdapterManager
+) :
+    RecyclerView.ViewHolder(view) {
     private val binding = ItemPullRequestBinding.bind(view)
-    private val imageLoader: ImageLoader = ImageLoaderService()
 
     private fun formatDate(inputDate: String): String {
         var convertedDate = Date()
@@ -30,7 +34,11 @@ class PullRequestViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     @SuppressLint("SetTextI18n")
     fun render(pullRequestModel: PullRequestModel) {
-        binding.idPullRequestTitle.text = pullRequestModel.title
+        with(binding) {
+            idPullRequestTitle.text = pullRequestModel.title
+            idPullRequestUsername.text = pullRequestModel.user.login
+            idPullRequestRealName.text = formatDate(pullRequestModel.createdAt)
+        }
 
         if (pullRequestModel.body.isNullOrEmpty()) {
             binding.idPullRequestBody.text = "No comments"
@@ -38,10 +46,7 @@ class PullRequestViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             binding.idPullRequestBody.text = pullRequestModel.body
         }
 
-        binding.idPullRequestUsername.text = pullRequestModel.user.login
-        binding.idPullRequestRealName.text = formatDate(pullRequestModel.createdAt)
-
-        imageLoader.loadCircled(
+        manager.provideImageLoader().loadCircled(
             binding.idPullRequestProfileImg.context,
             pullRequestModel.user.avatarUrl,
             binding.idPullRequestProfileImg,

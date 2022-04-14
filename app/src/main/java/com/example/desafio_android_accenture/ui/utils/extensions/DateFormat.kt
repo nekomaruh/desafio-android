@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.*
-
+//yyyy-MM-dd'T'hh:mm:ss.SSSZ
 private val ISO8601format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
 private val yearFormat = SimpleDateFormat("yyyy", Locale.US)
 private val intervalFormat = SimpleDateFormat("mm:ss", Locale.US)

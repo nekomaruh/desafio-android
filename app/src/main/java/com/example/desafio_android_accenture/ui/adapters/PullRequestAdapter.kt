@@ -5,12 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
+import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.ui.viewholders.PullRequestViewHolder
 
 
-class PullRequestAdapter : RecyclerView.Adapter<PullRequestViewHolder>() {
+class PullRequestAdapter(private val manager: AdapterManager) :
+    RecyclerView.Adapter<PullRequestViewHolder>() {
     private val pullRequestList = mutableListOf<PullRequestModel>()
+
+    interface AdapterManager {
+        fun provideImageLoader(): ImageLoader
+    }
 
     fun addPullRequests(pullRequests: List<PullRequestModel>) {
         pullRequestList.clear()
@@ -25,11 +31,7 @@ class PullRequestAdapter : RecyclerView.Adapter<PullRequestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return PullRequestViewHolder(
-            layoutInflater.inflate(
-                R.layout.item_pull_request,
-                parent,
-                false
-            )
+            layoutInflater.inflate(R.layout.item_pull_request, parent, false), manager
         )
     }
 
