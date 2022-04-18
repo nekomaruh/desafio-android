@@ -25,14 +25,12 @@ class RepositoryViewHolder(
             idStarredCount.text = repoModel.stars
             idRepoUsername.text = repoModel.name
             idRepoRealName.text = repoModel.user.login
+            manager.provideImageLoader().loadCircled(
+                context = idRepoProfileImg.context,
+                path = repoModel.user.avatarUrl,
+                imageView = binding.idRepoProfileImg
+            )
         }
-
-        manager.provideImageLoader().loadCircled(
-            binding.idRepoProfileImg.context,
-            repoModel.user.avatarUrl,
-            binding.idRepoProfileImg
-        )
-
         itemView.setOnClickListener { manager.onRepositoryClick(repoModel) }
     }
 }

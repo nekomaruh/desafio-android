@@ -26,17 +26,12 @@ class PullRequestViewHolder(
             idPullRequestTitle.text = pullRequestModel.title
             idPullRequestUsername.text = pullRequestModel.user.login
             idPullRequestRealName.text = pullRequestModel.createdAt.parseISO8601DateToString()
-            if (pullRequestModel.body.isNullOrEmpty()) {
-                idPullRequestBody.text = "No comments"
-            } else {
-                idPullRequestBody.text = pullRequestModel.body
-            }
+            idPullRequestBody.text = pullRequestModel.body ?: "No comments"
+            manager.provideImageLoader().loadCircled(
+                context = idPullRequestProfileImg.context,
+                path = pullRequestModel.user.avatarUrl,
+                imageView = idPullRequestProfileImg,
+            )
         }
-
-        manager.provideImageLoader().loadCircled(
-            binding.idPullRequestProfileImg.context,
-            pullRequestModel.user.avatarUrl,
-            binding.idPullRequestProfileImg,
-        )
     }
 }
