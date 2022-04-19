@@ -32,10 +32,12 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
+    <!--
     <ProgressBar
         android:id="@+id/id_progressbar_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+        -->
 
 </FrameLayout>

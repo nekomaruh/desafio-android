@@ -13,11 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Desafioandroidaccenture">
         <activity
-            android:name=".ui.view.PullRequestActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.view.MainActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

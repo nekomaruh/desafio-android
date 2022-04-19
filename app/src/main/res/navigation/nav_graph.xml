@@ -11,7 +11,7 @@
         android:label="fragment_repository"
         tools:layout="@layout/fragment_repository" >
         <action
-            android:id="@+id/action_repositoryFragment_to_pullRequestFragment"
+            android:id="@+id/navToPullRequest"
             app:destination="@id/pullRequestFragment" />
     </fragment>
     <fragment

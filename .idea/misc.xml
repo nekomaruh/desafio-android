@@ -30,6 +30,7 @@
         <entry key="app/src/main/res/layout/activity_pull_request.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/layout/fragment_pull_request.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/layout/fragment_repository.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_pull_request.xml" value="0.25" />
       </map>
     </option>
   </component>
