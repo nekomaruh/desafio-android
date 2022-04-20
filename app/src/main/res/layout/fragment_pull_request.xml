@@ -32,13 +32,18 @@
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/id_pull_request_recyclerView"
+            android:id="@+id/rvPullRequest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/pBarPullRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/id_empty_list_text"

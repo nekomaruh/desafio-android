@@ -1,13 +1,8 @@
 package com.example.desafio_android_accenture.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.databinding.DataBinderMapper
-import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,11 +13,11 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.FragmentRepositoryBinding
 import com.example.desafio_android_accenture.presentation.viewmodel.MainViewModel
-import com.example.desafio_android_accenture.presentation.viewmodel.MyListState
+import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
-import java.util.*
 
 private const val TAG = "TAG"
+
 
 class RepositoryFragment : Fragment() {
 
@@ -65,11 +60,11 @@ class RepositoryFragment : Fragment() {
         }
     }
 
-    private fun renderViewState(state: MyListState) {
+    private fun renderViewState(state: ListState) {
         when (state) {
-            is MyListState.Loading -> binding.pBarRepository.visibility = View.VISIBLE
-            is MyListState.Success -> binding.pBarRepository.visibility = View.GONE
-            is MyListState.Error -> {
+            is ListState.Loading -> binding.pBarRepository.visibility = View.VISIBLE
+            is ListState.Success -> binding.pBarRepository.visibility = View.GONE
+            is ListState.Error -> {
                 binding.pBarRepository.visibility = View.GONE
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
             }

@@ -18,13 +18,12 @@ class PullRequestAdapter(private val manager: AdapterManager) :
     }
 
     fun addPullRequests(pullRequests: List<PullRequestModel>) {
+        val diffUtil = PullRequestItemDiffCallback(pullRequestList, pullRequests)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        // diffResults.dispatchUpdatesTo(this)
         pullRequestList.clear()
-        val oldList = pullRequestList
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
-            PullRequestItemDiffCallback(oldList, pullRequests)
-        )
         pullRequestList.addAll(pullRequests)
-        diffResult.dispatchUpdatesTo(this)
+        diffResults.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
@@ -41,6 +40,8 @@ class PullRequestAdapter(private val manager: AdapterManager) :
 
     override fun getItemCount(): Int = pullRequestList.size
 
+    fun clear() = pullRequestList.clear()
+
     class PullRequestItemDiffCallback(
         var oldList: List<PullRequestModel>,
         var newList: List<PullRequestModel>
@@ -50,11 +51,15 @@ class PullRequestAdapter(private val manager: AdapterManager) :
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].user == newList[oldItemPosition].user
+            val oldItem = oldList[oldItemPosition].user
+            val newItem = newList[newItemPosition].user
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].equals(newList[newItemPosition])
+            val oldItem = oldList[oldItemPosition]
+            val newItem = newList[newItemPosition]
+            return oldItem.equals(newItem)
         }
     }
 }

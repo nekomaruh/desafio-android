@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +17,7 @@ import com.example.desafio_android_accenture.ui.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.databinding.FragmentPullRequestBinding
 import com.example.desafio_android_accenture.ui.view.MainActivity
 import com.example.desafio_android_accenture.presentation.viewmodel.MainViewModel
+import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 
 /**
  * A simple [Fragment] subclass.
@@ -31,45 +32,52 @@ class PullRequestFragment : Fragment() {
     private val pullRequestAdapter = PullRequestAdapter(manager = PullRequestManager())
     private val args: PullRequestFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = activity?.let { ViewModelProvider(it)[MainViewModel::class.java] }!!
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = activity?.let { ViewModelProvider(it)[MainViewModel::class.java] }!!
         binding = FragmentPullRequestBinding.inflate(inflater, container, false)
-
-        val title = args.repoTitle
-        val user = args.repoUser
-        val issues = args.issuesOpened
-
-        initRecyclerHeader(issues)
-        initRecyclerView(title, user)
-        (activity as MainActivity).supportActionBar?.title = title
+        (activity as MainActivity).supportActionBar?.title = args.repoTitle
         return binding.root
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initRecyclerHeader(issues: String) {
-        binding.idOpenIssues.text = "$issues opened"
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    private fun initRecyclerView(title: String, user: String) {
-        with(binding.idPullRequestRecyclerView) {
+        binding.idOpenIssues.text = "${args.issuesOpened} open"
+
+        with(binding.rvPullRequest) {
             adapter = pullRequestAdapter
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
 
         with(viewModel) {
-            getPullRequests(user, title).observe(viewLifecycleOwner) {
+            pullRequestList.observe(viewLifecycleOwner) {
                 pullRequestAdapter.addPullRequests(it)
             }
-            isLoading.observe(viewLifecycleOwner) { binding.idEmptyListText.isVisible = it }
+            pullRequestListState.observe(viewLifecycleOwner) {
+                renderViewState(it)
+            }
+            getPullRequests(args.repoUser, args.repoTitle)
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        pullRequestAdapter.clear()
+    }
+
+    private fun renderViewState(state: ListState) {
+        when (state) {
+            is ListState.Loading -> binding.pBarPullRequest.visibility = View.VISIBLE
+            is ListState.Success -> binding.pBarPullRequest.visibility = View.GONE
+            is ListState.Error -> {
+                binding.pBarPullRequest.visibility = View.GONE
+                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     inner class PullRequestManager : PullRequestAdapter.AdapterManager {

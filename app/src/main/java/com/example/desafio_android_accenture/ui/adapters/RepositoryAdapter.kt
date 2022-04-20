@@ -21,22 +21,22 @@ class RepositoryAdapter(private val manager: AdapterManager) :
     }
 
     fun addRepositories(repositories: List<RepositoryModel>) {
-        val oldList = repoList
-        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
-            RepoItemDiffCallback(oldList, repositories)
-        )
-
-        diffResult.dispatchUpdatesTo(this)
+        val diffUtil = RepoItemDiffCallback(repoList, repositories)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        // diffResults.dispatchUpdatesTo(this)
         repoList.clear()
         repoList.addAll(repositories)
-
+        diffResults.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return RepositoryViewHolder(
-            layoutInflater.inflate(R.layout.item_repository, parent, false),
-            manager
+            layoutInflater.inflate(
+                R.layout.item_repository,
+                parent,
+                false,
+            ), manager
         )
     }
 

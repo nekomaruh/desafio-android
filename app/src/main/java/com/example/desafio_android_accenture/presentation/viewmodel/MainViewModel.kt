@@ -12,26 +12,24 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-sealed class MyListState {
-    object Loading : MyListState()
-    object Error: MyListState()
-    data class Success(val list: List<Any>) : MyListState()
-}
+
+val TAG = "TAG"
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getRepositoriesUseCase: GetRepositoriesUseCase,
     private val getPullRequestsUseCase: GetPullRequestsUseCase,
 ) : ViewModel() {
+
     // Live Data
     val repositoryList = MutableLiveData<List<RepositoryModel>>()
-    val repositoryListState = MutableLiveData<MyListState>()
-    val isLoading = MutableLiveData<Boolean>()
+    val pullRequestList = MutableLiveData<List<PullRequestModel>>()
 
-    val TAG = "TAG"
+    // States
+    val repositoryListState = MutableLiveData<ListState>()
+    val pullRequestListState = MutableLiveData<ListState>()
 
     init {
-
         Log.i(TAG,"ON INIT VIEWMODEL")
         //getRepositories(1)
     }
@@ -39,27 +37,31 @@ class MainViewModel @Inject constructor(
     fun getRepositories(index: Int) {
         Log.i(TAG,"LOAD REPOSITORIES FROM VIEWMODEL")
         viewModelScope.launch {
-            repositoryListState.postValue(MyListState.Loading)
+            repositoryListState.postValue(ListState.Loading)
             val result = getRepositoriesUseCase(index)
             if (!result.isNullOrEmpty()) {
                 repositoryList.postValue(result)
-                repositoryListState.postValue(MyListState.Success(result))
+                repositoryListState.postValue(ListState.Success(result))
             }else{
                 repositoryList.postValue(emptyList())
-                repositoryListState.postValue(MyListState.Error)
+                repositoryListState.postValue(ListState.Error)
             }
         }
     }
 
-    fun getPullRequests(user: String, repository: String): MutableLiveData<List<PullRequestModel>> {
-        val pullRequestList = MutableLiveData<List<PullRequestModel>>()
+    fun getPullRequests(user: String, repository: String) {
+        Log.i(TAG,"LOAD PULL REQUESTS FROM VIEWMODEL")
         viewModelScope.launch {
-            isLoading.postValue(true)
+            pullRequestListState.postValue(ListState.Loading)
             val result = getPullRequestsUseCase(user, repository)
-            pullRequestList.postValue(result)
-            isLoading.postValue(false)
+            if (!result.isNullOrEmpty()) {
+                pullRequestList.postValue(result)
+                pullRequestListState.postValue(ListState.Success(result))
+            }else{
+                pullRequestList.postValue(emptyList())
+                pullRequestListState.postValue(ListState.Error)
+            }
         }
-        return pullRequestList
     }
 
 }
