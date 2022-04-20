@@ -28,6 +28,7 @@
         <entry key="..\:/Users/Cristina/Desktop/johan/desafio-android/app/src/main/res/menu/main_activity_menu.xml" value="0.1675929884566054" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18697916666666667" />
         <entry key="app/src/main/res/layout/activity_pull_request.xml" value="0.20462962962962963" />
+        <entry key="app/src/main/res/layout/fragment_base.xml" value="0.2526041666666667" />
         <entry key="app/src/main/res/layout/fragment_pull_request.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/layout/fragment_repository.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_pull_request.xml" value="0.25" />

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/repositoryFragment"
         android:name="com.example.desafio_android_accenture.ui.fragments.RepositoryFragment"
-        android:label="fragment_repository"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_repository" >
         <action
             android:id="@+id/navToPullRequest"

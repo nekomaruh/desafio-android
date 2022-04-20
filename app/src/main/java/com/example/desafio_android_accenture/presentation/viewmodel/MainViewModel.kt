@@ -1,5 +1,6 @@
 package com.example.desafio_android_accenture.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +28,16 @@ class MainViewModel @Inject constructor(
     val repositoryListState = MutableLiveData<MyListState>()
     val isLoading = MutableLiveData<Boolean>()
 
+    val TAG = "TAG"
+
+    init {
+
+        Log.i(TAG,"ON INIT VIEWMODEL")
+        //getRepositories(1)
+    }
+
     fun getRepositories(index: Int) {
+        Log.i(TAG,"LOAD REPOSITORIES FROM VIEWMODEL")
         viewModelScope.launch {
             repositoryListState.postValue(MyListState.Loading)
             val result = getRepositoriesUseCase(index)
@@ -35,28 +45,11 @@ class MainViewModel @Inject constructor(
                 repositoryList.postValue(result)
                 repositoryListState.postValue(MyListState.Success(result))
             }else{
+                repositoryList.postValue(emptyList())
                 repositoryListState.postValue(MyListState.Error)
             }
         }
     }
-
-
-
-    /*
-    init {
-        viewModelScope.launch {
-            repositoryListState.postValue(MyListState.Loading)
-            val result = getRepositoriesUseCase(0)
-            if (!result.isNullOrEmpty()) {
-                repositoryList.postValue(result)
-                repositoryListState.postValue(MyListState.Loaded(result))
-            }else{
-                repositoryListState.postValue(MyListState.Error)
-            }
-        }
-    }
-
-     */
 
     fun getPullRequests(user: String, repository: String): MutableLiveData<List<PullRequestModel>> {
         val pullRequestList = MutableLiveData<List<PullRequestModel>>()

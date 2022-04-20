@@ -9,7 +9,6 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.ui.viewholders.PullRequestViewHolder
 
-
 class PullRequestAdapter(private val manager: AdapterManager) :
     RecyclerView.Adapter<PullRequestViewHolder>() {
     private val pullRequestList = mutableListOf<PullRequestModel>()

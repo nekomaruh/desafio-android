@@ -10,7 +10,6 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.ui.viewholders.RepositoryViewHolder
 
-// private val onClickListener: (RepositoryModel) -> Unit
 class RepositoryAdapter(private val manager: AdapterManager) :
     RecyclerView.Adapter<RepositoryViewHolder>() {
 
@@ -26,8 +25,11 @@ class RepositoryAdapter(private val manager: AdapterManager) :
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
             RepoItemDiffCallback(oldList, repositories)
         )
-        repoList.addAll(repositories)
+
         diffResult.dispatchUpdatesTo(this)
+        repoList.clear()
+        repoList.addAll(repositories)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
@@ -54,11 +56,15 @@ class RepositoryAdapter(private val manager: AdapterManager) :
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].fullName == newList[oldItemPosition].fullName
+            val oldItem = oldList[oldItemPosition].fullName
+            val newItem = newList[newItemPosition].fullName
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].equals(newList[newItemPosition])
+            val oldItem = oldList[oldItemPosition]
+            val newItem = newList[newItemPosition]
+            return oldItem.equals(newItem)
         }
     }
 
