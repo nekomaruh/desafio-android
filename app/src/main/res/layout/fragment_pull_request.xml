@@ -46,7 +46,7 @@
         android:layout_gravity="center"/>
 
     <TextView
-        android:id="@+id/id_empty_list_text"
+        android:id="@+id/tvEmptyPullRequest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/indigo"

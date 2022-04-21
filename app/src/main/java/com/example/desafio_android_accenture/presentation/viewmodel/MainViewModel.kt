@@ -30,19 +30,19 @@ class MainViewModel @Inject constructor(
     val pullRequestListState = MutableLiveData<ListState>()
 
     init {
-        Log.i(TAG,"ON INIT VIEWMODEL")
+        Log.i(TAG, "ON INIT VIEWMODEL")
         //getRepositories(1)
     }
 
     fun getRepositories(index: Int) {
-        Log.i(TAG,"LOAD REPOSITORIES FROM VIEWMODEL")
+        Log.i(TAG, "LOAD REPOSITORIES FROM VIEWMODEL")
         viewModelScope.launch {
             repositoryListState.postValue(ListState.Loading)
             val result = getRepositoriesUseCase(index)
             if (!result.isNullOrEmpty()) {
                 repositoryList.postValue(result)
                 repositoryListState.postValue(ListState.Success(result))
-            }else{
+            } else {
                 repositoryList.postValue(emptyList())
                 repositoryListState.postValue(ListState.Error)
             }
@@ -50,14 +50,20 @@ class MainViewModel @Inject constructor(
     }
 
     fun getPullRequests(user: String, repository: String) {
-        Log.i(TAG,"LOAD PULL REQUESTS FROM VIEWMODEL")
+        Log.i(TAG, "LOAD PULL REQUESTS FROM VIEWMODEL")
         viewModelScope.launch {
             pullRequestListState.postValue(ListState.Loading)
             val result = getPullRequestsUseCase(user, repository)
-            if (!result.isNullOrEmpty()) {
+            Log.i(TAG, result.size.toString())
+
+            if(result.isEmpty()){
+                pullRequestList.postValue(emptyList())
+                pullRequestListState.postValue(ListState.NoData)
+            }
+            else if (!result.isNullOrEmpty()) {
                 pullRequestList.postValue(result)
                 pullRequestListState.postValue(ListState.Success(result))
-            }else{
+            } else {
                 pullRequestList.postValue(emptyList())
                 pullRequestListState.postValue(ListState.Error)
             }

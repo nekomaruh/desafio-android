@@ -72,7 +72,15 @@ class PullRequestFragment : Fragment() {
     private fun renderViewState(state: ListState) {
         when (state) {
             is ListState.Loading -> binding.pBarPullRequest.visibility = View.VISIBLE
-            is ListState.Success -> binding.pBarPullRequest.visibility = View.GONE
+            is ListState.Success -> {
+                binding.pBarPullRequest.visibility = View.GONE
+                binding.tvEmptyPullRequest.visibility = View.INVISIBLE
+            }
+            is ListState.NoData -> {
+                binding.pBarPullRequest.visibility = View.GONE
+                binding.tvEmptyPullRequest.visibility = View.VISIBLE
+                Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
+            }
             is ListState.Error -> {
                 binding.pBarPullRequest.visibility = View.GONE
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()

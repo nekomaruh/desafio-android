@@ -64,6 +64,10 @@ class RepositoryFragment : Fragment() {
         when (state) {
             is ListState.Loading -> binding.pBarRepository.visibility = View.VISIBLE
             is ListState.Success -> binding.pBarRepository.visibility = View.GONE
+            is ListState.NoData -> {
+                binding.pBarRepository.visibility = View.GONE
+                Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
+            }
             is ListState.Error -> {
                 binding.pBarRepository.visibility = View.GONE
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
