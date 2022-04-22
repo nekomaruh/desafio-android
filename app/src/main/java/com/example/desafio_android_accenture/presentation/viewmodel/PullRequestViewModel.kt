@@ -1,8 +1,6 @@
 package com.example.desafio_android_accenture.presentation.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.domain.GetPullRequestsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,5 +36,5 @@ class PullRequestViewModel @Inject constructor(
         }
     }
 
-    fun clearList() = pullRequestList.postValue(listOf())
+    fun clearList() = pullRequestList.postValue(emptyList())
 }

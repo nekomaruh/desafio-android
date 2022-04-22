@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,25 +20,29 @@ import com.example.desafio_android_accenture.ui.view.MainActivity
 import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.presentation.viewmodel.PullRequestViewModel
 import com.example.desafio_android_accenture.utils.mappers.toPullRequestItem
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Use the [PullRequestFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+@AndroidEntryPoint
 class PullRequestFragment : Fragment() {
 
+    private val viewModel: PullRequestViewModel by viewModels()
+    private val args: PullRequestFragmentArgs by navArgs()
     private lateinit var binding: FragmentPullRequestBinding
-    private lateinit var viewModel: PullRequestViewModel
     private val imageLoader: ImageLoader = ImageLoaderService()
     private val pullRequestAdapter = PullRequestAdapter(manager = PullRequestManager())
-    private val args: PullRequestFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = activity?.let { ViewModelProvider(it)[PullRequestViewModel::class.java] }!!
         binding = FragmentPullRequestBinding.inflate(inflater, container, false)
         (activity as MainActivity).supportActionBar?.title = args.repoTitle
         return binding.root

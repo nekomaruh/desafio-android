@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,13 +15,14 @@ import com.example.desafio_android_accenture.databinding.FragmentRepositoryBindi
 import com.example.desafio_android_accenture.presentation.viewmodel.RepositoryViewModel
 import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "TAG"
 
-
+@AndroidEntryPoint
 class RepositoryFragment : Fragment() {
 
-    private lateinit var viewModel: RepositoryViewModel
+    private val viewModel: RepositoryViewModel by viewModels()
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding!!
     private val imageLoader: ImageLoader = ImageLoaderService()
@@ -33,7 +34,6 @@ class RepositoryFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentRepositoryBinding.inflate(inflater, container, false)
-        viewModel = activity?.let { ViewModelProvider(it)[RepositoryViewModel::class.java] }!!
         return binding.root
     }
 
