@@ -12,7 +12,7 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.FragmentRepositoryBinding
-import com.example.desafio_android_accenture.presentation.viewmodel.MainViewModel
+import com.example.desafio_android_accenture.presentation.viewmodel.RepositoryViewModel
 import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
 
@@ -21,7 +21,7 @@ private const val TAG = "TAG"
 
 class RepositoryFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: RepositoryViewModel
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding!!
     private val imageLoader: ImageLoader = ImageLoaderService()
@@ -33,6 +33,7 @@ class RepositoryFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentRepositoryBinding.inflate(inflater, container, false)
+        viewModel = activity?.let { ViewModelProvider(it)[RepositoryViewModel::class.java] }!!
         return binding.root
     }
 
@@ -42,15 +43,12 @@ class RepositoryFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = activity?.let { ViewModelProvider(it)[MainViewModel::class.java] }!!
-
         with(binding.rvRepository) {
             adapter = repositoryAdapter
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
 
         with(viewModel) {
-            activity?.let { ViewModelProvider(it)[MainViewModel::class.java] }!!
             repositoryList.observe(viewLifecycleOwner){
                 repositoryAdapter.addRepositories(it)
             }

@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.databinding.ItemPullRequestBinding
+import com.example.desafio_android_accenture.presentation.model.PullRequestItem
 import com.example.desafio_android_accenture.ui.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.utils.extensions.parseISO8601DateToString
 
@@ -14,15 +15,15 @@ class PullRequestViewHolder(
     RecyclerView.ViewHolder(view) {
     private val binding = ItemPullRequestBinding.bind(view)
 
-    fun render(pullRequestModel: PullRequestModel) {
+    fun render(item: PullRequestItem) {
         with(binding) {
-            idPullRequestTitle.text = pullRequestModel.title
-            idPullRequestUsername.text = pullRequestModel.user.login
-            idPullRequestRealName.text = pullRequestModel.createdAt.parseISO8601DateToString()
-            idPullRequestBody.text = pullRequestModel.body ?: "No comments"
+            idPullRequestTitle.text = item.title
+            idPullRequestUsername.text = item.user.login
+            idPullRequestRealName.text = item.createdAt
+            idPullRequestBody.text = item.body
             manager.provideImageLoader().loadCircled(
                 context = idPullRequestProfileImg.context,
-                path = pullRequestModel.user.avatarUrl,
+                path = item.user.avatarUrl,
                 imageView = idPullRequestProfileImg,
             )
         }
