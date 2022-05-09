@@ -12,9 +12,12 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.FragmentRepositoryBinding
+import com.example.desafio_android_accenture.presentation.model.RepositoryItem
 import com.example.desafio_android_accenture.presentation.viewmodel.RepositoryViewModel
 import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
+import com.example.desafio_android_accenture.utils.mappers.toPullRequestItem
+import com.example.desafio_android_accenture.utils.mappers.toRepositoryItem
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "TAG"
@@ -49,21 +52,26 @@ class RepositoryFragment : Fragment() {
         }
 
         with(viewModel) {
-            repositoryList.observe(viewLifecycleOwner){
-                repositoryAdapter.addRepositories(it)
-            }
-            repositoryListState.observe(viewLifecycleOwner) { renderViewState(it) }
+            repositoryListState.observe(viewLifecycleOwner, ::renderViewState)
             Toast.makeText(context, "LOAD", Toast.LENGTH_SHORT).show()
             getRepositories(1)
         }
     }
 
-    private fun renderViewState(state: ListState) = with(binding) {
+    private fun renderViewState(state: ListState<RepositoryModel>) = with(binding) {
         when (state) {
-            is ListState.Loading -> pBarRepository.visibility = View.VISIBLE
+            is ListState.Loading -> {
+                rvRepository.visibility = View.INVISIBLE
+                pBarRepository.visibility = View.VISIBLE
+            }
             is ListState.Success -> {
+                val list = state.list
                 pBarRepository.visibility = View.GONE
-                if(state.list.isEmpty()){
+                rvRepository.visibility = View.VISIBLE
+                if (list.isNotEmpty()) {
+                    val items = list.map { it.toRepositoryItem() }
+                    repositoryAdapter.addRepositories(items)
+                }else{
                     Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
                 }
             }
@@ -75,7 +83,7 @@ class RepositoryFragment : Fragment() {
     }
 
     inner class RepositoryManager : RepositoryAdapter.AdapterManager {
-        override fun onRepositoryClick(item: RepositoryModel) {
+        override fun onRepositoryClick(item: RepositoryItem) {
             val action =
                 RepositoryFragmentDirections.navToPullRequest(
                     repoTitle = item.name,

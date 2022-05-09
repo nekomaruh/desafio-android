@@ -16,6 +16,7 @@ import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.ui.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.databinding.FragmentPullRequestBinding
+import com.example.desafio_android_accenture.presentation.model.PullRequestItem
 import com.example.desafio_android_accenture.ui.view.MainActivity
 import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.presentation.viewmodel.PullRequestViewModel
@@ -43,7 +44,6 @@ class PullRequestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPullRequestBinding.inflate(inflater, container, false)
-        //(activity as MainActivity).supportActionBar?.title = args.repoTitle
         return binding.root
     }
 
@@ -64,11 +64,11 @@ class PullRequestFragment : Fragment() {
         }
     }
 
-    private fun renderViewState(state: ListState<*>) = with(binding) {
+    private fun renderViewState(state: ListState<PullRequestModel>) = with(binding) {
         when (state) {
             is ListState.Loading -> pBarPullRequest.visibility = View.VISIBLE
             is ListState.Success -> {
-                val list = state.list as List<PullRequestModel>
+                val list = state.list
                 pBarPullRequest.visibility = View.GONE
                 if (list.isNotEmpty()) {
                     val items = list.map { it.toPullRequestItem() }

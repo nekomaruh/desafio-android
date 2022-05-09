@@ -12,20 +12,16 @@ class PullRequestViewModel @Inject constructor(
     private val getPullRequestsUseCase: GetPullRequestsUseCase
 ) : ViewModel() {
 
-    // LiveData
-    //private val pullRequestList = MutableLiveData<List<PullRequestModel>>()
-
-    // State
-    val pullRequestListState = MutableLiveData<ListState>()
+    val pullRequestListState = MutableLiveData<ListState<PullRequestModel>>()
 
     fun getPullRequests(user: String, repository: String) {
         viewModelScope.launch {
-            pullRequestListState.postValue(ListState.Loading)
+            pullRequestListState.postValue(ListState.Loading())
             val result = getPullRequestsUseCase(user, repository)
             if(result.isEmpty() || !result.isNullOrEmpty()){
                 pullRequestListState.postValue(ListState.Success(result))
             }else{
-                pullRequestListState.postValue(ListState.Error)
+                pullRequestListState.postValue(ListState.Error())
             }
         }
     }

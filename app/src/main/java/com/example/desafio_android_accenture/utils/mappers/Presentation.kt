@@ -14,15 +14,15 @@ fun RepositoryModel.toRepositoryItem() = RepositoryItem(
     issuesOpened = issuesOpened,
     stars = stars,
     branches = branches,
-    userImgUrl = userImgUrl,
+    userImgUrl = userImgUrl ?: "",
     user = user
 )
 
 fun PullRequestModel.toPullRequestItem() = PullRequestItem(
     title = title,
     body = body ?: "",
-    userImgUrl = userImgUrl?: "",
-    repo_url = repo_url?:"",
+    userImgUrl = userImgUrl ?: "",
+    repo_url = repo_url ?: "",
     createdAt = createdAt.parseISO8601DateToString(),
     user = user
 )

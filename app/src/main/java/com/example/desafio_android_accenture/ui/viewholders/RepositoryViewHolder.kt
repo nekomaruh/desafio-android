@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.ItemRepositoryBinding
+import com.example.desafio_android_accenture.presentation.model.RepositoryItem
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
 
 class RepositoryViewHolder(
@@ -13,7 +14,7 @@ class RepositoryViewHolder(
     RecyclerView.ViewHolder(view) {
     private val binding = ItemRepositoryBinding.bind(view)
 
-    fun render(repoModel: RepositoryModel) = with(binding) {
+    fun render(repoModel: RepositoryItem) = with(binding) {
         idRepoTitle.text = repoModel.fullName
         idRepoDescription.text = repoModel.description
         idBranchesCount.text = repoModel.branches

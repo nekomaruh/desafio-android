@@ -10,7 +10,7 @@ data class RepositoryModel(
     @SerializedName("open_issues") val issuesOpened: String,
     @SerializedName("stargazers_count") val stars: String,
     @SerializedName("forks_count") val branches: String,
-    @SerializedName("user_img_url") val userImgUrl: String,
+    @SerializedName("user_img_url") val userImgUrl: String?,
     @SerializedName("owner") val user: UserModel
 ) {
     override fun equals(other: Any?): Boolean {

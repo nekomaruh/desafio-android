@@ -14,22 +14,16 @@ class RepositoryViewModel @Inject constructor(
     private val getRepositoriesUseCase: GetRepositoriesUseCase
 ) : ViewModel() {
 
-    // Live Data
-    val repositoryList = MutableLiveData<List<RepositoryModel>>()
-
-    // States
-    val repositoryListState = MutableLiveData<ListState>()
+    val repositoryListState = MutableLiveData<ListState<RepositoryModel>>()
 
     fun getRepositories(index: Int) {
         viewModelScope.launch {
-            repositoryListState.postValue(ListState.Loading)
+            repositoryListState.postValue(ListState.Loading())
             val result = getRepositoriesUseCase(index)
-            if (!result.isNullOrEmpty()) {
-                repositoryList.postValue(result)
+            if (result.isEmpty() || !result.isNullOrEmpty()) {
                 repositoryListState.postValue(ListState.Success(result))
             } else {
-                repositoryList.postValue(emptyList())
-                repositoryListState.postValue(ListState.Error)
+                repositoryListState.postValue(ListState.Error())
             }
         }
     }
