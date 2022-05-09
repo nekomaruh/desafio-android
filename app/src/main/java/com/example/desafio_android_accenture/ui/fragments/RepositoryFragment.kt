@@ -58,16 +58,17 @@ class RepositoryFragment : Fragment() {
         }
     }
 
-    private fun renderViewState(state: ListState) {
+    private fun renderViewState(state: ListState) = with(binding) {
         when (state) {
-            is ListState.Loading -> binding.pBarRepository.visibility = View.VISIBLE
-            is ListState.Success -> binding.pBarRepository.visibility = View.GONE
-            is ListState.NoData -> {
-                binding.pBarRepository.visibility = View.GONE
-                Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
+            is ListState.Loading -> pBarRepository.visibility = View.VISIBLE
+            is ListState.Success -> {
+                pBarRepository.visibility = View.GONE
+                if(state.list.isEmpty()){
+                    Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
+                }
             }
             is ListState.Error -> {
-                binding.pBarRepository.visibility = View.GONE
+                pBarRepository.visibility = View.GONE
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
             }
         }

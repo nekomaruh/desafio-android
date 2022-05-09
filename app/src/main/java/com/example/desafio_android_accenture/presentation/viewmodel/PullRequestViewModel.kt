@@ -13,7 +13,7 @@ class PullRequestViewModel @Inject constructor(
 ) : ViewModel() {
 
     // LiveData
-    private val pullRequestList = MutableLiveData<List<PullRequestModel>>()
+    //private val pullRequestList = MutableLiveData<List<PullRequestModel>>()
 
     // State
     val pullRequestListState = MutableLiveData<ListState>()
@@ -22,19 +22,12 @@ class PullRequestViewModel @Inject constructor(
         viewModelScope.launch {
             pullRequestListState.postValue(ListState.Loading)
             val result = getPullRequestsUseCase(user, repository)
-
-            if (result.isEmpty()) {
-                pullRequestList.postValue(emptyList())
-                pullRequestListState.postValue(ListState.NoData)
-            } else if (!result.isNullOrEmpty()) {
-                pullRequestList.postValue(result)
+            if(result.isEmpty() || !result.isNullOrEmpty()){
                 pullRequestListState.postValue(ListState.Success(result))
-            } else {
-                pullRequestList.postValue(emptyList())
+            }else{
                 pullRequestListState.postValue(ListState.Error)
             }
         }
     }
 
-    fun clearList() = pullRequestList.postValue(emptyList())
 }

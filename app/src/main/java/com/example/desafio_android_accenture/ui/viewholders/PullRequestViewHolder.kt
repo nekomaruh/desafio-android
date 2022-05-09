@@ -15,17 +15,15 @@ class PullRequestViewHolder(
     RecyclerView.ViewHolder(view) {
     private val binding = ItemPullRequestBinding.bind(view)
 
-    fun render(item: PullRequestItem) {
-        with(binding) {
-            idPullRequestTitle.text = item.title
-            idPullRequestUsername.text = item.user.login
-            idPullRequestRealName.text = item.createdAt
-            idPullRequestBody.text = item.body
-            manager.provideImageLoader().loadCircled(
-                context = idPullRequestProfileImg.context,
-                path = item.user.avatarUrl,
-                imageView = idPullRequestProfileImg,
-            )
-        }
+    fun render(item: PullRequestItem) = with(binding) {
+        idPullRequestTitle.text = item.title
+        idPullRequestUsername.text = item.user.login
+        idPullRequestRealName.text = item.createdAt
+        idPullRequestBody.text = item.body
+        manager.provideImageLoader().loadCircled(
+            context = idPullRequestProfileImg.context,
+            path = item.user.avatarUrl,
+            imageView = idPullRequestProfileImg,
+        )
     }
 }

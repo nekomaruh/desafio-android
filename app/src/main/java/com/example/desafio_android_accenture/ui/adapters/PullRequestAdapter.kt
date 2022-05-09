@@ -41,8 +41,6 @@ class PullRequestAdapter(private val manager: AdapterManager) :
 
     override fun getItemCount(): Int = pullRequestList.size
 
-    fun clear() = pullRequestList.clear()
-
     class PullRequestItemDiffCallback(
         var oldList: List<PullRequestItem>,
         var newList: List<PullRequestItem>
