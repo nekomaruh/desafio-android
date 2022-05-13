@@ -70,7 +70,7 @@ class RepositoryFragment : Fragment() {
                 rvRepository.visibility = View.VISIBLE
                 if (list.isNotEmpty()) {
                     val items = list.map { it.toRepositoryItem() }
-                    repositoryAdapter.addRepositories(items)
+                    repositoryAdapter.addItems(items)
                 }else{
                     Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
                 }

@@ -2,45 +2,30 @@ package com.example.desafio_android_accenture.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
-import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.presentation.model.PullRequestItem
+import com.example.desafio_android_accenture.ui.viewholders.BaseViewHolder
 import com.example.desafio_android_accenture.ui.viewholders.PullRequestViewHolder
 
 class PullRequestAdapter(private val manager: AdapterManager) :
-    RecyclerView.Adapter<PullRequestViewHolder>() {
-    private val pullRequestList = mutableListOf<PullRequestItem>()
+    BaseAdapter<PullRequestItem>() {
 
     interface AdapterManager {
         fun provideImageLoader(): ImageLoader
     }
 
-    fun addPullRequests(pullRequests: List<PullRequestItem>) {
-        val diffUtil = PullRequestItemDiffCallback(pullRequestList, pullRequests)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        // diffResults.dispatchUpdatesTo(this)
-        pullRequestList.clear()
-        pullRequestList.addAll(pullRequests)
-        diffResults.dispatchUpdatesTo(this)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): BaseViewHolder<PullRequestItem> {
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_pull_request, parent, false)
+        return PullRequestViewHolder(view, manager)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return PullRequestViewHolder(
-            layoutInflater.inflate(R.layout.item_pull_request, parent, false), manager
-        )
-    }
-
-    override fun onBindViewHolder(holder: PullRequestViewHolder, position: Int) {
-        val item = pullRequestList[position]
-        return holder.render(item)
-    }
-
-    override fun getItemCount(): Int = pullRequestList.size
-
+    /*
     class PullRequestItemDiffCallback(
         var oldList: List<PullRequestItem>,
         var newList: List<PullRequestItem>
@@ -61,4 +46,5 @@ class PullRequestAdapter(private val manager: AdapterManager) :
             return oldItem.equals(newItem)
         }
     }
+     */
 }

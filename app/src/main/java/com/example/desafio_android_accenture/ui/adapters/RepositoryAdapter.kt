@@ -2,52 +2,28 @@ package com.example.desafio_android_accenture.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
-import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
-import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.presentation.model.RepositoryItem
 import com.example.desafio_android_accenture.ui.viewholders.RepositoryViewHolder
 
-class RepositoryAdapter(private val manager: AdapterManager) :
-    RecyclerView.Adapter<RepositoryViewHolder>() {
-
-    private val repoList = mutableListOf<RepositoryItem>()
+class RepositoryAdapter(private val manager: AdapterManager) : BaseAdapter<RepositoryItem>() {
 
     interface AdapterManager {
         fun onRepositoryClick(item: RepositoryItem)
         fun provideImageLoader(): ImageLoader
     }
 
-    fun addRepositories(repositories: List<RepositoryItem>) {
-        val diffUtil = RepoItemDiffCallback(repoList, repositories)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        // diffResults.dispatchUpdatesTo(this)
-        repoList.clear()
-        repoList.addAll(repositories)
-        diffResults.dispatchUpdatesTo(this)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return RepositoryViewHolder(
-            layoutInflater.inflate(
-                R.layout.item_repository,
-                parent,
-                false,
-            ), manager
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_repository,
+            parent,
+            false,
         )
+        return RepositoryViewHolder(view, manager)
     }
 
-    override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
-        val item = repoList[position]
-        return holder.render(item)
-    }
-
-    override fun getItemCount(): Int = repoList.size
-
+    /*
     class RepoItemDiffCallback(
         var oldList: List<RepositoryItem>,
         var newList: List<RepositoryItem>
@@ -68,5 +44,5 @@ class RepositoryAdapter(private val manager: AdapterManager) :
             return oldItem.equals(newItem)
         }
     }
-
+     */
 }

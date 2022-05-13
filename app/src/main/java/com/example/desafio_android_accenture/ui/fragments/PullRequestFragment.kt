@@ -72,7 +72,7 @@ class PullRequestFragment : Fragment() {
                 pBarPullRequest.visibility = View.GONE
                 if (list.isNotEmpty()) {
                     val items = list.map { it.toPullRequestItem() }
-                    pullRequestAdapter.addPullRequests(items)
+                    pullRequestAdapter.addItems(items)
                 } else tvEmptyPullRequest.visibility = View.VISIBLE
             }
             is ListState.Error -> pBarPullRequest.visibility = View.GONE

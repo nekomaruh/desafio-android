@@ -12,10 +12,10 @@ class PullRequestViewHolder(
     view: View,
     private val manager: PullRequestAdapter.AdapterManager
 ) :
-    RecyclerView.ViewHolder(view) {
+    BaseViewHolder<PullRequestItem>(view) {
     private val binding = ItemPullRequestBinding.bind(view)
 
-    fun render(item: PullRequestItem) = with(binding) {
+    override fun render(item: PullRequestItem) = with(binding) {
         idPullRequestTitle.text = item.title
         idPullRequestUsername.text = item.user.login
         idPullRequestRealName.text = item.createdAt
