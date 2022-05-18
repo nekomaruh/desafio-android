@@ -5,20 +5,15 @@ import android.view.ViewGroup
 import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.presentation.model.PullRequestItem
-import com.example.desafio_android_accenture.ui.viewholders.BaseViewHolder
 import com.example.desafio_android_accenture.ui.viewholders.PullRequestViewHolder
 
-class PullRequestAdapter(private val manager: AdapterManager) :
-    BaseAdapter<PullRequestItem>() {
+class PullRequestAdapter(private val manager: AdapterManager) : BaseAdapter<PullRequestItem>() {
 
     interface AdapterManager {
         fun provideImageLoader(): ImageLoader
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): BaseViewHolder<PullRequestItem> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): PullRequestViewHolder {
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_pull_request, parent, false)
