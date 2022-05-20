@@ -6,8 +6,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
@@ -16,11 +14,11 @@ import com.example.desafio_android_accenture.presentation.model.RepositoryItem
 import com.example.desafio_android_accenture.presentation.viewmodel.RepositoryViewModel
 import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
-import com.example.desafio_android_accenture.utils.mappers.toPullRequestItem
+import com.example.desafio_android_accenture.utils.extensions.addVerticalDivider
+import com.example.desafio_android_accenture.utils.extensions.observe
+import com.example.desafio_android_accenture.utils.extensions.shortToast
 import com.example.desafio_android_accenture.utils.mappers.toRepositoryItem
 import dagger.hilt.android.AndroidEntryPoint
-
-private const val TAG = "TAG"
 
 @AndroidEntryPoint
 class RepositoryFragment : Fragment() {
@@ -40,20 +38,17 @@ class RepositoryFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding.rvRepository) {
             adapter = repositoryAdapter
-            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            addVerticalDivider()
         }
 
         with(viewModel) {
-            repositoryListState.observe(viewLifecycleOwner, ::renderViewState)
-            Toast.makeText(context, "LOAD", Toast.LENGTH_SHORT).show()
+            observe(repositoryListState, ::renderViewState)
+            context?.shortToast("LOAD")
             getRepositories(1)
         }
     }
@@ -71,7 +66,7 @@ class RepositoryFragment : Fragment() {
                 if (list.isNotEmpty()) {
                     val items = list.map { it.toRepositoryItem() }
                     repositoryAdapter.addItems(items)
-                }else{
+                } else {
                     Toast.makeText(context, "Empty", Toast.LENGTH_LONG).show()
                 }
             }

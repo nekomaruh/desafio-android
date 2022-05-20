@@ -7,7 +7,7 @@
         <font color="#FF0707">open</font>
     </string>
     <string name="closed_issues">
-        <font color="closed">AND NOW BLUE</font>
+        <font color="closed">closed</font>
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
