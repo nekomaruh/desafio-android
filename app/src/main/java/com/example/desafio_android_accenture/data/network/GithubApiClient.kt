@@ -19,5 +19,4 @@ interface GithubApiClient {
     //@GET("users/{user}")
     //suspend fun getUser(@Path("user") user:String): Response<List<UserModel>>
 
-
 }
