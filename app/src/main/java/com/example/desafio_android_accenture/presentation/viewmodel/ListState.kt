@@ -10,9 +10,6 @@ sealed class ListState() {
 
  */
 
-
-
-
 sealed class ListState<T> {
     class Loading<T> : ListState<T>()
     class Error<T> : ListState<T>()

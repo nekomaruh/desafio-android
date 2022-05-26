@@ -1,5 +1,6 @@
 package com.example.desafio_android_accenture.ui.adapters
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.ui.viewholders.BaseViewHolder
@@ -17,10 +18,12 @@ abstract class BaseAdapter<T : Any> : RecyclerView.Adapter<BaseViewHolder<T>>() 
     fun addItems(items: List<T>) {
         val diffUtil = BaseDiffCallback(list, items)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
-        // diffResults.dispatchUpdatesTo(this)
+        diffResults.dispatchUpdatesTo(this)
         list.clear()
         list.addAll(items)
-        diffResults.dispatchUpdatesTo(this)
+        //diffResults.dispatchUpdatesTo(this)
     }
+
+
 }
 

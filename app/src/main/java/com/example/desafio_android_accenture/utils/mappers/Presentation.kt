@@ -9,12 +9,12 @@ import com.example.desafio_android_accenture.utils.extensions.parseISO8601DateTo
 fun RepositoryModel.toRepositoryItem() = RepositoryItem(
     name = name,
     fullName = fullName,
-    description = description,
+    description = description ?: "",
     repo_url = repo_url,
     issuesOpened = issuesOpened,
     stars = stars,
     branches = branches,
-    userImgUrl = userImgUrl ?: "",
+    userImgUrl = userImgUrl ?: "https://demofree.sirv.com/nope-not-here.jpg",
     user = user
 )
 

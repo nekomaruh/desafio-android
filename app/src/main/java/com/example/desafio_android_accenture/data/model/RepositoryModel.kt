@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class RepositoryModel(
     @SerializedName("name") val name: String,
     @SerializedName("full_name") val fullName: String,
-    @SerializedName("description") val description: String,
+    @SerializedName("description") val description: String?,
     @SerializedName("html_url") val repo_url: String,
     @SerializedName("open_issues") val issuesOpened: String,
     @SerializedName("stargazers_count") val stars: String,
