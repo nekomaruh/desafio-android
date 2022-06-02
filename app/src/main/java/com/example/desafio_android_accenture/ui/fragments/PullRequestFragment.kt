@@ -2,23 +2,27 @@ package com.example.desafio_android_accenture.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.*
 import androidx.navigation.fragment.navArgs
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
-import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
+import com.example.desafio_android_accenture.data.imageloader.ImageLoaderImpl
 import com.example.desafio_android_accenture.data.model.PullRequestModel
 import com.example.desafio_android_accenture.ui.adapters.PullRequestAdapter
 import com.example.desafio_android_accenture.databinding.FragmentPullRequestBinding
-import com.example.desafio_android_accenture.presentation.viewmodel.ListState
 import com.example.desafio_android_accenture.presentation.viewmodel.PullRequestViewModel
+import com.example.desafio_android_accenture.presentation.viewmodel.UiState
 import com.example.desafio_android_accenture.utils.extensions.addVerticalDivider
-import com.example.desafio_android_accenture.utils.extensions.observe
+import com.example.desafio_android_accenture.utils.extensions.observeFlow
+import com.example.desafio_android_accenture.utils.extensions.shortToast
 import com.example.desafio_android_accenture.utils.mappers.toPullRequestItem
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -26,12 +30,11 @@ import dagger.hilt.android.AndroidEntryPoint
  * create an instance of this fragment.
  */
 
-@AndroidEntryPoint
 class PullRequestFragment : Fragment() {
 
-    private val viewModel: PullRequestViewModel by viewModels()
+    private val viewModel by viewModel<PullRequestViewModel>() // Lazy load
+    private val imageLoader by inject<ImageLoader>()
     private val args: PullRequestFragmentArgs by navArgs()
-    private val imageLoader: ImageLoader = ImageLoaderService()
     private val pullRequestAdapter = PullRequestAdapter(manager = PullRequestManager())
     private lateinit var binding: FragmentPullRequestBinding
 
@@ -45,31 +48,67 @@ class PullRequestFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
 
-        idOpenIssues.text = "${args.issuesOpened} open"
+        binding.idOpenIssues.text = "${args.issuesOpened} open"
 
-        with(rvPullRequest) {
+        with(binding.rvPullRequest) {
             adapter = pullRequestAdapter
             addVerticalDivider()
         }
 
         with(viewModel) {
+            observeFlow(pullRequestListState, ::renderViewState)
+            getPullRequests(args.repoUser, args.repoTitle)
+        }
+
+        /*
+        lifecycleScope.launchWhenStarted {
+            viewModel.pullRequestListState.collect {
+                when (it) {
+                    UiState.Loading -> pBarPullRequest.visibility = View.VISIBLE
+                    UiState.Empty -> tvEmptyPullRequest.visibility = View.VISIBLE
+                    UiState.Error -> {
+                        tvEmptyPullRequest.text = it.toString()
+                    }
+                    UiState.Success -> {
+                        /** WHAT??? */
+                        onSuccess(it)
+                    }
+                    else -> Unit
+
+                }
+            }
+        }
+
+         */
+
+        /*
+        with(viewModel) {
             observe(pullRequestListState, ::renderViewState)
             getPullRequests(args.repoUser, args.repoTitle)
         }
+        */
     }
 
-    private fun renderViewState(state: ListState<PullRequestModel>) = with(binding) {
+    private fun renderViewState(state: UiState) = with(binding) {
         when (state) {
-            is ListState.Loading -> pBarPullRequest.visibility = View.VISIBLE
-            is ListState.Error -> pBarPullRequest.visibility = View.GONE
-            is ListState.Success -> onSuccess(state.list)
+            is UiState.Loading -> {
+                pBarPullRequest.visibility = View.VISIBLE
+                Log.d("GG2","View Cargando")
+            }
+            is UiState.Error -> {
+                pBarPullRequest.visibility = View.GONE
+            }
+            is UiState.Success -> {
+                onSuccess(state.list as List<PullRequestModel>)
+                Log.d("GG2","Recibido lista")
+            }
+            is UiState.Empty -> {
+                print("hello")
+            }
         }
     }
 

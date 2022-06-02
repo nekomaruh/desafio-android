@@ -5,7 +5,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
-class ImageLoaderService : ImageLoader {
+class ImageLoaderImpl : ImageLoader {
     override fun loadCircled(context: Context, path: String, imageView: ImageView) {
         Glide.with(context)
             .load(path)

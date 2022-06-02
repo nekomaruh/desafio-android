@@ -3,15 +3,12 @@ package com.example.desafio_android_accenture.ui.fragments
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
-import com.example.desafio_android_accenture.data.imageloader.ImageLoaderService
 import com.example.desafio_android_accenture.data.model.RepositoryModel
 import com.example.desafio_android_accenture.databinding.FragmentRepositoryBinding
 import com.example.desafio_android_accenture.presentation.model.RepositoryItem
@@ -21,17 +18,16 @@ import com.example.desafio_android_accenture.ui.adapters.RepositoryAdapter
 import com.example.desafio_android_accenture.utils.extensions.addVerticalDivider
 import com.example.desafio_android_accenture.utils.extensions.longToast
 import com.example.desafio_android_accenture.utils.extensions.observe
-import com.example.desafio_android_accenture.utils.extensions.shortToast
 import com.example.desafio_android_accenture.utils.mappers.toRepositoryItem
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class RepositoryFragment : Fragment() {
 
-    private val viewModel: RepositoryViewModel by viewModels()
+    private val viewModel by viewModel<RepositoryViewModel>() // Lazy load
+    private val imageLoader by inject<ImageLoader>()
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding!!
-    private val imageLoader: ImageLoader = ImageLoaderService()
     private val repositoryAdapter = RepositoryAdapter(manager = RepositoryManager())
 
     override fun onCreateView(

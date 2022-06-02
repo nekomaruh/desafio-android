@@ -5,6 +5,7 @@ import com.example.desafio_android_accenture.data.model.RepositoryResponse
 import retrofit2.Response
 import retrofit2.http.*
 
+/** Main Repo */
 interface GithubApiClient {
 
     @GET("search/repositories?q=language:Java&sort=stars")
