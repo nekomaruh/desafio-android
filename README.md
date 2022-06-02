@@ -1,3 +1,28 @@
+# Desafío Android Accenture #
+
+Este reposutorio contiene la solucion implementada del desafío. Algunas de las dependencias y features base agregadas:
+- ViewModel
+- Retrofit
+- Glide
+- Use Cases 
+- Clean Arch
+- Jetpack Navigation (Single Activity)
+- Fragments
+- Adapters (with DiffCallback)
+- Recyclerview
+- ViewHolder (with callback)
+- Extensions
+- Mappers
+
+Con MVVM + LiveData + Dagger Hilt:
+- Branch [master](https://github.com/nekomaruh/desafio-android)
+
+Con MVVM + StateFlow + Koin (with module DI):
+- Branch [flow_koin](https://github.com/nekomaruh/desafio-android/tree/flow_coin)
+
+Abajo se explica el desafío en Portugués, entregado por Concrete Solutions (Accenture): [Consultar Guía en Español](https://github.com/nekomaruh/desafio-android/blob/flow_coin/README.es.md)
+
+
 # Criar um aplicativo de consulta a API do [GitHub](https://github.com)#
 
 Criar um aplicativo para consultar a [API do GitHub](https://developer.github.com/v3/) e trazer os repositórios mais populares de Java. Basear-se no mockup fornecido:
