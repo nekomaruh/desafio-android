@@ -48,8 +48,6 @@ class PullRequestFragment : Fragment() {
         return binding.root
     }
 
-
-    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
