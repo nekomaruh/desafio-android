@@ -19,6 +19,7 @@
         android:name="com.example.desafio_android_accenture.ui.fragments.PullRequestFragment"
         android:label="{repo_title}"
         tools:layout="@layout/fragment_pull_request">
+
         <argument
             android:name="repo_title"
             app:argType="string" />
@@ -27,6 +28,6 @@
             app:argType="string" />
         <argument
             android:name="issues_opened"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
 </navigation>

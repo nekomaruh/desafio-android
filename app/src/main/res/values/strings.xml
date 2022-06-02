@@ -4,11 +4,12 @@
     <string name="no_comments">No comments</string>
 
     <string name="open_issues">
-        <font color="#FF0707">open</font>
+        <font color="#FF0707">%1$d issues open</font>
     </string>
     <string name="closed_issues">
-        <font color="closed">closed</font>
+        <font color="closed">/ %1$d closed</font>
     </string>
+    <string name="empty_list_pull_requests">There are no pull requests\nin this repository</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

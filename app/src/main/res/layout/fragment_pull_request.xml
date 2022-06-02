@@ -15,19 +15,20 @@
             android:layout_height="wrap_content"
             android:background="@color/grey_light"
             android:padding="15dp">
+
             <TextView
                 android:id="@+id/id_open_issues"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="16 opened"
+                android:text="@string/open_issues"
                 android:textColor="@color/amber"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/id_closed_issues"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/id_open_issues"
-                android:text=" / 800 closed"
+                android:text="@string/closed_issues"
                 android:textStyle="bold"/>
         </RelativeLayout>
 
@@ -51,7 +52,7 @@
         android:layout_height="match_parent"
         android:textColor="@color/indigo"
         android:textSize="20sp"
-        android:text="There are no pull requests\nin this repository"
+        android:text="@string/empty_list_pull_requests"
         android:visibility="gone"
         android:gravity="center"/>
 

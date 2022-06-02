@@ -6,7 +6,7 @@ data class RepositoryItem(
     val fullName: String,
     val description: String,
     val repo_url: String,
-    val issuesOpened: String,
+    val issuesOpened: Int,
     val stars: String,
     val branches: String,
     val userImgUrl: String,

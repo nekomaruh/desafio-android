@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.*
 import androidx.navigation.fragment.navArgs
+import com.example.desafio_android_accenture.R
 import com.example.desafio_android_accenture.data.imageloader.ImageLoader
 import com.example.desafio_android_accenture.data.imageloader.ImageLoaderImpl
 import com.example.desafio_android_accenture.data.model.PullRequestModel
@@ -47,64 +48,39 @@ class PullRequestFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+
+    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
 
-        binding.idOpenIssues.text = "${args.issuesOpened} open"
+        with(binding){
+            idOpenIssues.text = getString(R.string.open_issues, args.issuesOpened)
 
-        with(binding.rvPullRequest) {
-            adapter = pullRequestAdapter
-            addVerticalDivider()
+            with(rvPullRequest) {
+                adapter = pullRequestAdapter
+                addVerticalDivider()
+            }
         }
 
         with(viewModel) {
             observeFlow(pullRequestListState, ::renderViewState)
             getPullRequests(args.repoUser, args.repoTitle)
         }
-
-        /*
-        lifecycleScope.launchWhenStarted {
-            viewModel.pullRequestListState.collect {
-                when (it) {
-                    UiState.Loading -> pBarPullRequest.visibility = View.VISIBLE
-                    UiState.Empty -> tvEmptyPullRequest.visibility = View.VISIBLE
-                    UiState.Error -> {
-                        tvEmptyPullRequest.text = it.toString()
-                    }
-                    UiState.Success -> {
-                        /** WHAT??? */
-                        onSuccess(it)
-                    }
-                    else -> Unit
-
-                }
-            }
-        }
-
-         */
-
-        /*
-        with(viewModel) {
-            observe(pullRequestListState, ::renderViewState)
-            getPullRequests(args.repoUser, args.repoTitle)
-        }
-        */
     }
 
     private fun renderViewState(state: UiState) = with(binding) {
         when (state) {
             is UiState.Loading -> {
                 pBarPullRequest.visibility = View.VISIBLE
-                Log.d("GG2","View Cargando")
+                Log.d("GG2", "View Cargando")
             }
             is UiState.Error -> {
                 pBarPullRequest.visibility = View.GONE
             }
             is UiState.Success -> {
                 onSuccess(state.list as List<PullRequestModel>)
-                Log.d("GG2","Recibido lista")
+                Log.d("GG2", "Recibido lista")
             }
             is UiState.Empty -> {
                 print("hello")
